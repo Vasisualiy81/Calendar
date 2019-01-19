@@ -1,4 +1,5 @@
-//@import url('https://fonts.googleapis.com/css?family=Montserrat')
+//@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
 .mainContainer
   display: flex
   flex-direction: column
@@ -14,6 +15,7 @@
   background-image: linear-gradient(0deg, #1B6090 0%, #0B3157 100%)
   width: 375px
   height: 40px
+  cursor: default
 
 
 .prev
@@ -25,6 +27,7 @@
   width: 59px
   text-align: left
   margin-left: 16px
+  cursor: pointer
 
 .next
   color: #48C1C2
@@ -35,14 +38,30 @@
   width: 66px
   text-align: right
   margin-right: 16px
+  cursor: pointer
 
 .currentWeek
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
   color: #FFFFFF
   font-family: Montserrat
   font-size: 16px
   font-weight: 800
   line-height: 19px
   text-align: center
+
+.dropDown 
+  display: flex
+  justify-content: center
+  align-items: center
+  opacity: 0.5
+  width: 12.73px
+  height: 7.78px 
+  margin-left: 10px
+  background-size: cover
+  cursor: pointer  
 
 /*//////////////////////////////////////*/
 .daysWeekContainer
@@ -53,6 +72,7 @@
   background-image: linear-gradient(0deg, #1B6090 0%, #0B3157 100%)
   width: 375px
   height: 20px
+  cursor: default
 
 
 /*//////////////////////////////////////*/
@@ -64,5 +84,17 @@
   height: 40px
   content: "test"
   margin-top: 8px
+  cursor: default
+
+.dayOfWeek
+   display: flex
+   justify-content: center
+   align-items: center
+   color: #FFFFFF
+   font-size: 11px
+   font-weight: 400
+   line-height: 13px
+   width: 40px
+   text-align: center
 
 

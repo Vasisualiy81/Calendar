@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './Calendar.sass';
 import * as moment from 'moment';
+import DatesWeek from '../DatesWeek/DatesWeek'
+import dropdown from '../../assets/dropdown48-2.png'
 
 let  numberDayWeek =-1;
 let  numberDateWeek =0;
@@ -22,19 +24,20 @@ class Calendar extends Component {
             curWeek: week,     
             curMonth: month, 
             curDate:  curDay,   
-            firstDayWeek: moment(moment().day(1).week(week)).format("D")
+            firstDayWeek: moment(moment().day(1).week(week)).format("D"),
+            isClickedDate: false
         };
        
     }
 
     render() {
-     
+   
         return (
             <>
                 <div className={"mainContainer"}>
                     <div className={"header"}>
                         <div className={"prev"} onClick={() => this.onPrevNextClick("-")}>PREV</div>
-                        {this.renderTitle()}                       
+                        {this.renderTitle()}                                             
                         <div className={"next"} onClick={() => this.onPrevNextClick("+")}>NEXT</div>
                     </div>
 
@@ -48,16 +51,15 @@ class Calendar extends Component {
                         {this.renderDayWeekName()}
                     </div>
 
-                    <div className={"dateWeekContainer"}>
-                        {this.renderDateWeek()}
-                        {this.renderDateWeek()}
-                        {this.renderDateWeek()}
-                        {this.renderDateWeek()}
-                        {this.renderDateWeek()}
-                        {this.renderDateWeek()}
-                        {this.renderDateWeek()}
-                        
-                        
+                    <div className={"dateWeekContainer"} onClick={() => this.onDateClick()}>
+                       
+                        <DatesWeek content = {this.renderDateWeek()}></DatesWeek>
+                        <DatesWeek content = {this.renderDateWeek()}></DatesWeek>
+                        <DatesWeek content = {this.renderDateWeek()}></DatesWeek>
+                        <DatesWeek content = {this.renderDateWeek()}></DatesWeek>
+                        <DatesWeek content = {this.renderDateWeek()}></DatesWeek>
+                        <DatesWeek content = {this.renderDateWeek()}></DatesWeek>
+                        <DatesWeek content = {this.renderDateWeek()}></DatesWeek>
                     </div>
                 </div>
             </>
@@ -89,13 +91,7 @@ class Calendar extends Component {
        if(numberDayWeek === 6) { numberDayWeek = 0; }
        else{ numberDayWeek += 1; };       
        
-        return   <div className={"dayOfWeek"}
-                      style={{"color":"#FFFFFF",
-                          "fontSize":"11px",
-                          "fontWeight":"400",
-                          "lineHheight":"13px",
-                          "width":"40px",
-                          "textAlign":"center"}}
+        return   <div className={"dayOfWeek"}                  
         >{this.state.dayWeekName[numberDayWeek]} </div>;
     };
 
@@ -104,63 +100,30 @@ class Calendar extends Component {
         else{numberDateWeek = moment(moment().day(index).week(week)).format("D");}
 
         index++;       
-       
-       if(Number.parseInt(numberDateWeek) === Number.parseInt(curDay)){
-        return   <div className={"dayOfWeek"}
-        style={{display: "flex",
-            "alignItems":"center",
-            "justifyContent":"center",
-            "color":"#FFFFFF",
-            "background":"#0B3157",
-            "borderRadius":"5px",
-            "fontFamily":"Montserrat",
-            "fontSize":"16px",
-            "fontWeight":"400",
-            "letterSpacing":"-0.28px",
-            "width":"40px",
-            "height":"40px",
-            "textAlign":"center"
-            }}
->{numberDateWeek} </div>;
-       }else{
-        return   <div className={"dayOfWeek"}
-             onClick={() => this.onDateClick()}
-             //text-content = "numberDateWeek"
-                      style={{ display: "flex",
-                          "alignItems":"center",
-                          "justifyContent":"center",
-                          "color":"#0B3157",
-                          "background":"#FFFFFF",
-                          "borderRadius":"5px",
-                          "fontFamily":"Montserrat",
-                          "fontSize":"16px",
-                          "fontWeight":"400",
-                          "letterSpacing":"-0.28px",
-                          "width":"40px",
-                          "height":"40px",
-                          "textAlign":"center"
-                         }}
-        >{numberDateWeek} </div>;
-    }
+       return numberDateWeek;
+  
     };
 
-     renderTitle() {        
-       
-      
+     renderTitle() {  
     if(Number.parseInt(firstDay) > Number.parseInt(lastDay)){  
        return <div className={"currentWeek"}>
        {`${month} ${firstDay} - ${nextMonth} ${lastDay}`}
+       <div className={"dropDown"} >                       
+                           <img src={dropdown} alt="V" width = {"12.73px"} height = {"7.78px"}></img>
+                        </div>  
        </div>        
     }else{
        return <div className={"currentWeek"}>
        {`${month} ${firstDay} - ${lastDay}`}
+       <div className={"dropDown"} >                       
+                           <img src={dropdown} alt="V"  width = {"12.73px"} height = {"7.78px"}></img>
+                        </div>  
        </div>
     }
     };
- onDateClick() {    
-     console.log("onDateClick");
-    curDay= this.props.content;
-    this.setState({curDay: this.state.curDate});
+ onDateClick(props) {       
+    index=1;
+      this.setState({isClickedDate: true});      
  }
 }
 
