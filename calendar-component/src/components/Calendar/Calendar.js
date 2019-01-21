@@ -76,12 +76,16 @@ class Calendar extends Component {
       
         if(Number.parseInt(firstDay) > Number.parseInt(lastDay) ){          
             month =moment(moment().week(week-1)).format("MMM");
-            nextMonth =moment(moment().week(week)).format("MMM");
-        }  else{
+            nextMonth =moment(moment().week(week+1)).format("MMM");
+        }  else{           
+           
             month =moment(moment().week(week)).format("MMM");
             nextMonth =moment(moment().week(week+1)).format("MMM");
+            
+
         }
-      
+        console.log("month",month);
+        console.log("nextMonth",nextMonth);
         numberDayWeek =-1;
         numberDateWeek = 0;
         index = 1;       
