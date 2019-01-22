@@ -2,51 +2,48 @@ import React, {Component} from 'react';
 import './DatesWeek.sass';
 import * as moment from 'moment';
 
-
-
- 
-
-let curDay =moment( moment()).format("D");
-let chekedDay =curDay;
-
 class DatesWeek extends Component {
     constructor(props) {
         super(props);
-           
-       
-        this.state ={
-           content:"",
-           isDateCheked: false
+        let curDay = moment();
+
+
+        this.state = {
+            content: "",
+            selectedDate: curDay
         };
-       
-    };
-    render() {
-       
-           if(Number.parseInt(this.props.content) === Number.parseInt(chekedDay)){           
-           return (
-               <div>{this.isCheked(true)}</div>);
-           } else{           
-            return (                
-                <div>{this.isCheked(false)}</div>);
-           }          
+
     };
 
-    isCheked(props){ 
-              
-if(props){   
-    return   <div className={"chekedDateOfWeek"}  
-    onClick={() => this.onDateClick()}   
->{this.props.content}</div>;
-}else{      
-    return   <div className={"dateOfWeek"}            
-             onClick={() => this.onDateClick()}
->{this.props.content}</div>;
-}
+    render() {
+        console.log("render - selectedDate >>> ",  moment(this.state.selectedDate).format("D MMM"));
+        return (
+            <div onClick={() => this.onDateClick(this.props)}>{this.isCheked(this.props)}</div>
+        )
+    };
+
+    isCheked(props) {
+        console.log("isCheked props.content >>> ",moment(this.props.content).format("D"));
+        console.log("isCheked curDay >>> ", moment(this.curDay).format("D"));
+        if (moment(this.props.content).format("D") === moment(this.curDay).format("D")) {
+            return <div className={"selectedDateOfWeek"}
+                        onClick={() => this.onDateClick(this.props)}>{moment(this.props.content).format("D")}</div>;
+        } else {
+            return <div className={"dateOfWeek"}
+                        onClick={() => this.onDateClick(this.props)}>{moment(this.props.content).format("D")}</div>;
+        };
     }
-    onDateClick(props) {   
-       chekedDay = this.props.content;   
-       this.setState({isDateCheked: true});
-         
+
+    onDateClick(props) {
+        console.log("onDateClick props >>> ",this.props.content);
+        this.curDay=this.props.content;
+
+
+
+        //console.log("onDateClick - selectedDate  >>> ", moment(newDate).format("D MMM"));
+        //this.chekedDay = this.props.content;
+        //this.setState({selectedDate: newDate});
+
     }
 };
 

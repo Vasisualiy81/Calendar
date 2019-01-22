@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Calendar from '../src/components/Calendar/Calendar.js';
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -12,12 +13,10 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Calendar>
-                </Calendar>
+                <Calendar/>
             </div>
         );
     }
-
 };
 
 export default App;
