@@ -1,11 +1,10 @@
-
-.mainContainer
+.Calendar-main-container
   display: flex
   flex-direction: column
   width: 375px
   height: 108px
 
-  .header
+  .Calendar-header-container
     display: flex
     flex-direction: row
     justify-content: space-between
@@ -15,7 +14,7 @@
     height: 40px
     cursor: default
 
-    .prev
+    .Calendar-prev
       color: #48C1C2
       font-family: Montserrat
       font-size: 12px
@@ -26,7 +25,7 @@
       margin-left: 16px
       cursor: pointer
 
-    .currentWeek
+    .Calendar-current-week
       display: flex
       flex-direction: row
       justify-content: space-between
@@ -38,7 +37,7 @@
       line-height: 19px
       text-align: center
 
-      .dropDown
+      .Calendar-dropdown
         display: flex
         justify-content: center
         align-items: center
@@ -48,7 +47,7 @@
         margin-left: 10px
         background-size: cover
         cursor: pointer
-    .next
+    .Calendar-next
       color: #48C1C2
       font-family: Montserrat
       font-size: 12px
@@ -59,7 +58,7 @@
       margin-right: 16px
       cursor: pointer
 
-  .daysWeekContainer
+  .Calendar-days-week-container
     display: flex
     flex-direction: row
     justify-content: space-around
@@ -69,7 +68,7 @@
     height: 20px
     cursor: default
 
-    .dayOfWeek
+    .Calendar-day-of-week
       display: flex
       justify-content: center
       align-items: center
@@ -79,7 +78,7 @@
       line-height: 13px
       width: 40px
       text-align: center
-  .dateWeekContainer
+  .Calendar-date-week-container
     display: flex
     justify-content: space-around
     align-items: center
