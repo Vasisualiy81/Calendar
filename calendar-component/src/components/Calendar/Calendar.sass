@@ -2,7 +2,7 @@
   display: flex
   flex-direction: column
   width: 375px
-  height: 108px
+  height: 348px
 
   .Calendar-header-container
     display: flex
@@ -78,15 +78,20 @@
       line-height: 13px
       width: 40px
       text-align: center
-  .Calendar-date-week-container
+  .Calendar-month-container
     display: flex
-    justify-content: space-around
-    align-items: center
-    width: 375px
-    height: 40px
-    content: "test"
-    margin-top: 8px
-    cursor: default
+    flex-direction: column
+
+    .Calendar-date-week-container
+      display: flex
+      flex-direction: row
+      justify-content: space-around
+      align-items: center
+      width: 375px
+      height: 40px
+      content: "test"
+      margin-top: 8px
+      cursor: default
 
 
 
