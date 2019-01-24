@@ -4,8 +4,6 @@
     <list default="true" id="0adee730-7830-494f-b733-cb48913079b7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/calendar-component/src/components/Calendar/Calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/calendar-component/src/components/Calendar/Calendar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendar-component/src/components/Calendar/Calendar.sass" beforeDir="false" afterPath="$PROJECT_DIR$/calendar-component/src/components/Calendar/Calendar.sass" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calendar-component/src/components/DatesWeek/DatesWeek.sass" beforeDir="false" afterPath="$PROJECT_DIR$/calendar-component/src/components/DatesWeek/DatesWeek.sass" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,22 +18,23 @@
     <session id="-310526973">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.55" value="1" />
+          <entry key="project.open.time.68" value="1" />
           <entry key="project.open.time.79" value="1" />
           <entry key="project.open.time.98" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="2499" />
+          <entry key="js" value="3415" />
           <entry key="sass" value="221" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="2499" />
+          <entry key="JavaScript" value="3415" />
           <entry key="Sass" value="221" />
         </counts>
       </usages-collector>
@@ -60,13 +59,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/calendar-component/src/components/Calendar/Calendar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="138" column="14" selection-start-line="138" selection-start-column="14" selection-end-line="138" selection-end-column="14" />
+            <state relative-caret-position="518">
+              <caret line="158" column="70" lean-forward="true" selection-start-line="158" selection-start-column="70" selection-end-line="158" selection-end-column="70" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <element signature="n#!!block;n#renderMonth#0;n#Calendar#0" />
-                <element signature="n#!!block;n#renderDates#0;n#Calendar#0" />
-                <element signature="n#!!block;n#getDatesCurWeek#0;n#Calendar#0" />
+                <element signature="n#!!block;n#renderWeek#0;n#Calendar#0" />
               </folding>
             </state>
           </provider>
@@ -114,8 +112,9 @@
       <path value="$PROJECT_DIR$/calendar-component/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="960" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="542" />
+    <option name="y" value="4" />
     <option name="width" value="960" />
     <option name="height" value="1040" />
   </component>
@@ -124,6 +123,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -170,7 +170,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -212,11 +211,12 @@
       <workItem from="1548143562137" duration="8991000" />
       <workItem from="1548250698811" duration="7263000" />
       <workItem from="1548281644936" duration="14226000" />
+      <workItem from="1548314868013" duration="13443000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40565000" />
+    <option name="totallyTimeSpent" value="54008000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -228,9 +228,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="542" y="4" width="960" height="1040" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24093817" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.50777775" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -246,7 +246,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.22101842" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.22491731" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -379,13 +379,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/calendar-component/src/components/Calendar/Calendar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="138" column="14" selection-start-line="138" selection-start-column="14" selection-end-line="138" selection-end-column="14" />
+        <state relative-caret-position="518">
+          <caret line="158" column="70" lean-forward="true" selection-start-line="158" selection-start-column="70" selection-end-line="158" selection-end-column="70" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <element signature="n#!!block;n#renderMonth#0;n#Calendar#0" />
-            <element signature="n#!!block;n#renderDates#0;n#Calendar#0" />
-            <element signature="n#!!block;n#getDatesCurWeek#0;n#Calendar#0" />
+            <element signature="n#!!block;n#renderWeek#0;n#Calendar#0" />
           </folding>
         </state>
       </provider>
