@@ -61,6 +61,9 @@ class Calendar extends Component {
                     <div className={"Calendar-month-container"}>
                         {this.state.fullMonth ? this.renderMonth() : this.renderWeek(this.state.curWeek)}
                     </div>
+                    <div className={"Calendar-selected-date"}>
+                        {moment(this.state.selectedDate).format("dddd, D MMMM").toUpperCase()}
+                    </div>
                 </div>
             </>
         );
@@ -104,13 +107,13 @@ class Calendar extends Component {
         const indexWeek1 = moment().month(curMonth).date(startOfMonth).week();
         const indexWeek2 = (curMonth === "Dec" ? 53 : moment().month(curMonth).date(endOfMonth).week());
 
-        // console.log("getWeeksMonth indexWeek1 >>> ", indexWeek1);
-        // console.log("getWeeksMonth indexWeek2 >>> ", indexWeek2);
+         // console.log("getWeeksMonth indexWeek1 >>> ", indexWeek1);
+         // console.log("getWeeksMonth indexWeek2 >>> ", indexWeek2);
         const allWeekMonth = [];
         for (let i = indexWeek1; i < indexWeek2 + 1; i++) {
+            if(i===53){ allWeekMonth.push(1);break;}
             allWeekMonth.push(i);
         }
-        ;
         return allWeekMonth;
     };
 
@@ -126,7 +129,7 @@ class Calendar extends Component {
     };
 
     getTitle() {
-        const curMonth = moment(this.state.curMonth).format("MMMM");
+        const curMonth = moment(this.state.curMonth).format("MMMM YYYY");
         const monthWithYearName = moment(this.state.curMonth).format((curMonth.length === 4 ? "MMMM YYYY" : "MMM YYYY"))
         const monthFirstDayWeek = moment(moment().day(0).week(this.state.curWeek)).format("MMMM");
         const monthLastDayWeek = moment(moment().day(6).week(this.state.curWeek)).format("MMMM");
@@ -141,6 +144,7 @@ class Calendar extends Component {
 
     handleClick(indexWeek, i) {
         const tempSelectedDate = this.getDatesCurWeek(indexWeek)[i];
+        //console.log("handleClick - tempSelectedDate",tempSelectedDate);
         this.setState({
             selectedDate: tempSelectedDate,
             curWeek: indexWeek,
