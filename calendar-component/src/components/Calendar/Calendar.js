@@ -1,20 +1,19 @@
 import React, {Component} from 'react';
 import './Calendar.sass';
 import * as moment from 'moment';
-import DatesWeek from '../DatesWeek/DatesWeek'
-import dropdown from '../../assets/dropdown48-2.png'
+import DatesWeek from '../DatesWeek/DatesWeek';
+import dropdown from '../../assets/dropdown48-2.png';
 
+// moment.locale('cs');
 
 class Calendar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            daysWeekName: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-            datesCurWeek: [],
-            weeksMonth: [],
-            curDate: moment(),
+            daysWeekName: ["S", "M", "T", "W", "T", "F", "S"],
+            selectedDate: moment(),
             curWeek: moment().week(),
-            curMonth: moment(moment().month()).format("MMM"),
+            curMonth: moment().month(),
             fullMonth: false,
             contentPrev: "PREV",
             contentNext: "NEXT"
@@ -23,28 +22,33 @@ class Calendar extends Component {
         this.getDatesCurWeek = this.getDatesCurWeek.bind(this);
     };
 
+    componentDidMount() {
+        this.setState({
+            curMonth: moment().day(0).week(this.state.curWeek)
+        })
+    }
+
     render() {
         console.log("Calendar - render");
-        // console.log("curDate >>> ", moment(this.state.curDate).format('D MMM'));
-        // console.log("curWeek >>> ", moment(moment().week(this.state.curDate)).format("M"));
-        // console.log("curWeek2 >>> ", moment().date(moment(this.state.curDate).format('D')).week());
-
+        const curMonth = moment(this.state.curMonth).format('MMM');
+        const prevMonth = moment(moment().month(curMonth).subtract(1, 'month')).format('MMM');
+        const nextMonth = moment(moment().month(curMonth).add(1, 'month')).format('MMM');
         return (
             <>
                 <div className={"Calendar-main-container"}>
 
                     <div className={"Calendar-header-container"}>
-                        <div className={"Calendar-prev"} onClick={() => this.onPrevNextClick("-")}>
-                            {(this.state.fullMonth ? moment(moment().month(this.state.curMonth).subtract(1, 'month')).format('MMM') : "PREV")}
+                        <div className={"Calendar-prev"} onClick={() => this.onPrevNextClick(-1)}>
+                            {(this.state.fullMonth ? prevMonth : "PREV")}
                         </div>
                         <div className={"Calendar-current-week"}>
                             {this.getTitle()}
                             <div className={"Calendar-dropdown"} onClick={() => this.onDropdownClick()}>
-                                <img src={dropdown} alt="V" width={"12.73px"} height={"7.78px"}></img>
+                                <img className={"Calendar-dropdown-img"} src={dropdown} alt="V"></img>
                             </div>
                         </div>
-                        <div className={"Calendar-next"} onClick={() => this.onPrevNextClick("+")}>
-                            {(this.state.fullMonth ? moment(moment().month(this.state.curMonth).add(1, 'month')).format('MMM') : "NEXT")}
+                        <div className={"Calendar-next"} onClick={() => this.onPrevNextClick(1)}>
+                            {(this.state.fullMonth ? nextMonth : "NEXT")}
                         </div>
                     </div>
 
@@ -66,7 +70,7 @@ class Calendar extends Component {
         //console.log("renderMonth >>> ");
         return (
             this.getWeeksMonth().map((indexWeek, i) => (
-                <div className={"Calendar-date-week-container"} key={i}>
+                <div key={i}>
                     {this.renderWeek(indexWeek)}
                 </div>))
         );
@@ -77,8 +81,10 @@ class Calendar extends Component {
         return (
             <div className={"Calendar-date-week-container"}>
                 {this.getDatesCurWeek(indexWeek).map((value, i) => (
+
                     <DatesWeek
-                        className={moment(this.state.curDate).format("D") === moment(value).format("D") ? "DatesWeek-selected-date-week" : "DatesWeek-date-week"}
+                        className={moment(this.state.selectedDate).format("D MMM") === moment(value).format("D MMM") ? "DatesWeek-selected-date-week" :
+                            (moment(this.state.curMonth).format("MMM") !== moment(value).format("MMM") ? "DatesWeek-date-other-month" : "DatesWeek-date-week")}
                         content={value}
                         key={i}
                         onClick={() => this.handleClick(indexWeek, i)}>{value}</DatesWeek>
@@ -88,18 +94,18 @@ class Calendar extends Component {
     };
 
     getWeeksMonth() {
-        //определяем текущий месяц по текущей неделе
-        const curMonth = this.state.curMonth;
-        //const curMonth = moment(moment().day(1).week(this.state.curWeek)).format('MMMM');
-        //const curMonth =   moment(moment().date( moment(this.state.curDate).format('D')).month('month')).format('MMM');
-        console.log("curMonth >>> ", curMonth);
+        //определяем текущий месяц в нужном формате
+        const curMonth = moment(this.state.curMonth).format("MMM");
+        //console.log("getWeeksMonth curMonth >>> ", curMonth);
         //определяем первый и последний дни текущего месяца
-        const startOfMonth = moment(moment().startOf('month').month(curMonth)).format('D');
-        const endOfMonth = moment(moment().endOf('month').month(curMonth)).format('D');
+        const startOfMonth = moment(moment().month(curMonth).clone().startOf('month')).format('D');
+        const endOfMonth = moment(moment().month(curMonth).clone().endOf('month')).format('D');
         //определяем индекс первой и последней недели текущего месяца
-        const indexWeek1 = moment().month(curMonth).date(startOfMonth).isoWeek();
-        const indexWeek2 = moment().month(curMonth).date(endOfMonth).isoWeek();
+        const indexWeek1 = moment().month(curMonth).date(startOfMonth).week();
+        const indexWeek2 = (curMonth === "Dec" ? 53 : moment().month(curMonth).date(endOfMonth).week());
 
+        // console.log("getWeeksMonth indexWeek1 >>> ", indexWeek1);
+        // console.log("getWeeksMonth indexWeek2 >>> ", indexWeek2);
         const allWeekMonth = [];
         for (let i = indexWeek1; i < indexWeek2 + 1; i++) {
             allWeekMonth.push(i);
@@ -110,12 +116,9 @@ class Calendar extends Component {
 
     getDatesCurWeek(indexWeek) {
         const datesWeek = [];
-        let dateCurWeek = undefined;
-        for (let index = 1; index < 8; index++) {
-            (
-                dateCurWeek = moment().day(index).isoWeek(indexWeek)
-
-            );
+        let dateCurWeek;
+        for (let index = 0; index < 7; index++) {
+            dateCurWeek = moment().day(index).week(indexWeek);
             datesWeek.push(dateCurWeek);
         }
         ;
@@ -123,47 +126,44 @@ class Calendar extends Component {
     };
 
     getTitle() {
-        const monthFirstDayWeek = moment(moment().day(1).week(this.state.curWeek)).format("MMM");
-        const monthLastDayWeek = moment(moment().day(0).week(this.state.curWeek + 1)).format("MMM");
-        return (this.state.fullMonth ?
-            moment(moment().month(this.state.curMonth)).format('MMMM') :
+        const curMonth = moment(this.state.curMonth).format("MMMM");
+        const monthWithYearName = moment(this.state.curMonth).format((curMonth.length === 4 ? "MMMM YYYY" : "MMM YYYY"))
+        const monthFirstDayWeek = moment(moment().day(0).week(this.state.curWeek)).format("MMMM");
+        const monthLastDayWeek = moment(moment().day(6).week(this.state.curWeek)).format("MMMM");
+        const firstDayWeek = moment(moment().day(0).week(this.state.curWeek)).format((monthFirstDayWeek.length === 4 ? "MMMM D" : "MMM D"));
+        let lastDayWeek =
             (monthFirstDayWeek === monthLastDayWeek ?
-                    moment(moment().day(1).week(this.state.curWeek)).format("MMM D") + " - " + moment(moment().day(0).week(this.state.curWeek + 1)).format("D") :
-                    moment(moment().day(1).week(this.state.curWeek)).format("MMM D") + " - " + moment(moment().day(0).week(this.state.curWeek + 1)).format("MMM D")
-            ));
+                moment(moment().day(6).week(this.state.curWeek)).format("D") :
+                moment(moment().day(6).week(this.state.curWeek)).format((monthLastDayWeek.length === 4 ? "MMMM D" : "MMM D")));
+
+        return (this.state.fullMonth ? monthWithYearName : firstDayWeek + "-" + lastDayWeek)
     };
 
     handleClick(indexWeek, i) {
-        let tempCurDay = this.getDatesCurWeek(indexWeek)[i];
-        console.log("tempCurDay >>> ", moment(tempCurDay).format("D MMM"));
-        console.log("indexWeek >>> ", indexWeek);
-        console.log("curWeek >>> ", moment().date(moment(tempCurDay).format('D')).week('week'));
+        const tempSelectedDate = this.getDatesCurWeek(indexWeek)[i];
         this.setState({
-            curDate: this.getDatesCurWeek(indexWeek)[i],
-            curWeek: indexWeek
+            selectedDate: tempSelectedDate,
+            curWeek: indexWeek,
+            curMonth: tempSelectedDate
         });
     };
 
-    onPrevNextClick(symbol) {
+    onPrevNextClick(digit) {
+        const tempCurWeek = (this.state.fullMonth ? this.state.curWeek + digit * 4 : this.state.curWeek + digit);
+        const tempCurMonth = moment().day(0).week(tempCurWeek);
 
-        let tempCurWeek = this.state.curWeek;
-        let tempCurMonth = moment(moment().day(1).week(tempCurWeek)).format('MMM');
-        if (this.state.fullMonth ?
-            (symbol === "+" ?
-                    (tempCurMonth = moment(moment().month(tempCurMonth).add(1, 'month')).format('MMM'), tempCurWeek += 4) :
-                    (tempCurMonth = moment(moment().month(tempCurMonth).subtract(1, 'month')).format('MMM'), tempCurWeek -= 4)
-            ) :
-            (tempCurWeek = (symbol === "+" ? (this.state.curWeek + 1) : (this.state.curWeek - 1))),
-            tempCurMonth = moment(moment().day(1).week(tempCurWeek)).format('MMM')
-        ) ;
-        this.setState({curMonth: tempCurMonth, curWeek: tempCurWeek});
+        this.setState({curMonth: tempCurMonth, curWeek: tempCurWeek})
     };
 
     onDropdownClick() {
-        console.log("curDate >>> ", moment(this.state.curDate).format('D MMM'));
-        console.log("curWeek >>> ", moment().date(moment(this.state.curDate).format('D')).week());
+        let tempCurMonth = moment(this.state.curMonth).format("MMM");
+        let tempCurWeek =
+            (tempCurMonth === moment(this.state.selectedDate).format("MMM") ?
+                moment(this.state.selectedDate).week() :
+                moment().month(tempCurMonth).date(1).week());
         this.setState({
-            fullMonth: !this.state.fullMonth
+            fullMonth: !this.state.fullMonth,
+            curWeek: tempCurWeek
         });
     }
 };

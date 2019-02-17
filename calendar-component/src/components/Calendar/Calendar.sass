@@ -3,6 +3,9 @@
   flex-direction: column
   width: 375px
   height: 348px
+  -moz-user-select: none
+  -khtml-user-select: none
+  user-select: none
 
   .Calendar-header-container
     display: flex
@@ -17,8 +20,8 @@
     .Calendar-prev
       color: #48C1C2
       font-family: Montserrat
-      font-size: 12px
-      font-weight: 700
+      font-size: 11px
+      font-weight: 600
       line-height: 14px
       width: 59px
       text-align: left
@@ -32,26 +35,31 @@
       align-items: center
       color: #FFFFFF
       font-family: Montserrat
-      font-size: 16px
+      font-size: 14px
       font-weight: 800
       line-height: 19px
       text-align: center
+      letter-spacing: 0.5px
+      //margin-left: 3px
 
       .Calendar-dropdown
         display: flex
         justify-content: center
         align-items: center
         opacity: 0.5
-        width: 12.73px
-        height: 7.78px
         margin-left: 10px
         background-size: cover
         cursor: pointer
+
+        .Calendar-dropdown-img
+          width: 12.73px
+          height: 7.78px
+
     .Calendar-next
       color: #48C1C2
       font-family: Montserrat
-      font-size: 12px
-      font-weight: 700
+      font-size: 11px
+      font-weight: 600
       line-height: 14px
       width: 66px
       text-align: right
@@ -61,23 +69,28 @@
   .Calendar-days-week-container
     display: flex
     flex-direction: row
-    justify-content: space-around
+    justify-content: space-between
     align-items: center
     background: #0B3157
-    width: 375px
+    width: 343px
     height: 20px
     cursor: default
+    padding-left: 16px
+    padding-right: 16px
 
     .Calendar-day-of-week
-      display: flex
-      justify-content: center
-      align-items: center
+      //display: flex
+      //justify-content: center
+      //align-items: center
       color: #FFFFFF
-      font-size: 11px
+      font-size: 10px
       font-weight: 400
       line-height: 13px
       width: 40px
       text-align: center
+      opacity: .5
+      font-family: Montserrat
+
   .Calendar-month-container
     display: flex
     flex-direction: column
@@ -85,13 +98,15 @@
     .Calendar-date-week-container
       display: flex
       flex-direction: row
-      justify-content: space-around
+      justify-content: space-between
       align-items: center
-      width: 375px
+      width: 343px
       height: 40px
       content: "test"
       margin-top: 8px
       cursor: default
+      padding-left: 16px
+    padding-right: 16px
 
 
 
